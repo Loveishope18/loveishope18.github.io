@@ -11,17 +11,34 @@
 <body>
   <nav>
     <div id="title">Select A Major</div>
-    <button id="CIT">CIT Majors</button>
-    <button id="BUS">Business Major</button>
-  </nav>
-  <div id="homePage">
+    <button type='button' class="btn btn-primary" onClick="getData('CIT')">CIT Major</buttons>
+    <button type='button' class="btn btn-primary" onClick="getData('BUS')">Business Major</buttons>
+    <div id="homePage">
     <header>
       <div id="title">We filter our dataset by major</div>
     </header>
-  </div>
-
-
+  </div
   <script src="cit5students.json"></script>
   <script src="script.js"></script>
 </body>
+<script>
+    async function getData(selected_meal) {
+        var response = await fetch('cit5students.json')
+
+        if(response.ok) {
+            var data = await response.json();
+
+            selected_major: data.filter( (item) => item.major=selected_major);
+                
+           var templateText = document.getElementById('menuTemplate').innerHTML;
+           var compiledTemplateText = Handlebars.compile(templateText);   
+           compiledHtml = compiledTemplateText({ rows: major_items }) 
+           document.getElementById('majorTable').innerHTML = compiledHtml; 
+       }
+       else {
+           document.querySelector('#majorTable').innerHTML = "There was an error"
+       }	
+ 
+  }
+</script>
 </html>
